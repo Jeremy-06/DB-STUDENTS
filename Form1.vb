@@ -19,12 +19,29 @@ Public Class Form1
         ' Load data into DataGridView  
         LoadDataIntoGridView()
     End Sub
+    Private Sub DataGridView1_CellClick(sender As Object, e As DataGridViewCellEventArgs) Handles DataGridView1.CellClick
+        Try
+            ' Ensure the selected row is valid  
+            If e.RowIndex >= 0 Then
+                ' Get the selected row  
+                Dim selectedRow As DataGridViewRow = DataGridView1.Rows(e.RowIndex)
+
+                ' Populate the text boxes with the selected row's data  
+                TextBox1.Text = selectedRow.Cells("student_id").Value.ToString()
+                TextBox2.Text = selectedRow.Cells("first_name").Value.ToString()
+                TextBox3.Text = selectedRow.Cells("last_name").Value.ToString()
+                TextBox4.Text = selectedRow.Cells("age").Value.ToString()
+                DateTimePicker1.Value = DateTime.Parse(selectedRow.Cells("birthday").Value.ToString())
+                TextBox6.Text = selectedRow.Cells("address").Value.ToString()
+            End If
+        Catch ex As Exception
+            ' Handle errors  
+            MessageBox.Show("An error occurred while selecting data: " & ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+        End Try
+    End Sub
 
     Private Sub LoadDataIntoGridView()
         Try
-            ' Open the connection  
-            conn.Open()
-
             ' Prepare the SQL query to fetch data  
             Dim query As String = "SELECT * FROM students_profile"
             da = New MySqlDataAdapter(query, conn)
@@ -92,7 +109,13 @@ Public Class Form1
             MessageBox.Show("An error occurred: " & ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
         Finally
             ' Close the connection  
-            conn.Close()
+            If conn.State = ConnectionState.Open Then
+                conn.Close()
+            End If
         End Try
+    End Sub
+
+    Private Sub Button2_Click(sender As Object, e As EventArgs) Handles Button2.Click
+
     End Sub
 End Class
