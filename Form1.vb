@@ -116,6 +116,44 @@ Public Class Form1
     End Sub
 
     Private Sub Button2_Click(sender As Object, e As EventArgs) Handles Button2.Click
+        Try
+            ' Validate input fields  
+            If String.IsNullOrWhiteSpace(TextBox1.Text) Then
+                MessageBox.Show("Student ID cannot be blank.", "Validation Error", MessageBoxButtons.OK, MessageBoxIcon.Warning)
+                Exit Sub
+            End If
 
+            ' Open the connection  
+            conn.Open()
+
+            ' Prepare the SQL query to update data  
+            Dim query As String = "UPDATE students_profile SET first_name = @firstName, last_name = @lastName, age = @age, birthday = @birthday, address = @address WHERE student_id = @id"
+            Dim cmd As MySqlCommand = New MySqlCommand(query, conn)
+
+            ' Add parameters to the query  
+            cmd.Parameters.AddWithValue("@id", TextBox1.Text)
+            cmd.Parameters.AddWithValue("@firstName", TextBox2.Text)
+            cmd.Parameters.AddWithValue("@lastName", TextBox3.Text)
+            cmd.Parameters.AddWithValue("@age", TextBox4.Text)
+            cmd.Parameters.AddWithValue("@birthday", DateTimePicker1.Value.ToString("yyyy-MM-dd"))
+            cmd.Parameters.AddWithValue("@address", TextBox6.Text)
+
+            ' Execute the query  
+            cmd.ExecuteNonQuery()
+
+            ' Notify the user  
+            MessageBox.Show("Record updated successfully!", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information)
+
+            ' Refresh the DataGridView  
+            LoadDataIntoGridView()
+        Catch ex As Exception
+            ' Handle errors  
+            MessageBox.Show("An error occurred: " & ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+        Finally
+            ' Close the connection  
+            If conn.State = ConnectionState.Open Then
+                conn.Close()
+            End If
+        End Try
     End Sub
 End Class
