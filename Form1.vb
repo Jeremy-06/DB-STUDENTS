@@ -156,4 +156,47 @@ Public Class Form1
             End If
         End Try
     End Sub
+
+    Private Sub Button3_Click(sender As Object, e As EventArgs) Handles Button3.Click
+        Try
+            ' Validate input fields  
+            If String.IsNullOrWhiteSpace(TextBox1.Text) Then
+                MessageBox.Show("Student ID cannot be blank.", "Validation Error", MessageBoxButtons.OK, MessageBoxIcon.Warning)
+                Exit Sub
+            End If
+
+            ' Confirm deletion  
+            Dim result As DialogResult = MessageBox.Show("Are you sure you want to delete this record?", "Confirm Deletion", MessageBoxButtons.YesNo, MessageBoxIcon.Question)
+            If result = DialogResult.No Then
+                Exit Sub
+            End If
+
+            ' Open the connection  
+            conn.Open()
+
+            ' Prepare the SQL query to delete data  
+            Dim query As String = "DELETE FROM students_profile WHERE student_id = @id"
+            Dim cmd As MySqlCommand = New MySqlCommand(query, conn)
+
+            ' Add parameters to the query  
+            cmd.Parameters.AddWithValue("@id", TextBox1.Text)
+
+            ' Execute the query  
+            cmd.ExecuteNonQuery()
+
+            ' Notify the user  
+            MessageBox.Show("Record deleted successfully!", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information)
+
+            ' Refresh the DataGridView  
+            LoadDataIntoGridView()
+        Catch ex As Exception
+            ' Handle errors  
+            MessageBox.Show("An error occurred: " & ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+        Finally
+            ' Close the connection  
+            If conn.State = ConnectionState.Open Then
+                conn.Close()
+            End If
+        End Try
+    End Sub
 End Class
