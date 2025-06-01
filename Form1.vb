@@ -69,6 +69,9 @@ Public Class Form1
 
             ' Notify the user  
             MessageBox.Show("Data inserted successfully!", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information)
+
+            ' Refresh the DataGridView  
+            LoadDataIntoGridView()
         Catch ex As Exception
             ' Handle errors  
             MessageBox.Show("An error occurred: " & ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
