@@ -41,45 +41,7 @@ Public Class Form1
             conn.Close()
         End Try
     End Sub
-    Private Sub Button1_Click(sender As Object, e As EventArgs) Handles Button1.Click
-        Try
-            ' Validate input fields  
-            If String.IsNullOrWhiteSpace(TextBox2.Text) OrElse String.IsNullOrWhiteSpace(TextBox3.Text) Then
-                MessageBox.Show("First Name and Last Name cannot be blank.", "Validation Error", MessageBoxButtons.OK, MessageBoxIcon.Warning)
-                Exit Sub
-            End If
 
-            ' Open the connection  
-            conn.Open()
-
-            ' Prepare the SQL query to insert data  
-            Dim query As String = "INSERT INTO students_profile (student_id, first_name, last_name, age, birthday, address) VALUES (@id, @firstName, @lastName, @age, @birthday, @address)"
-            Dim cmd As MySqlCommand = New MySqlCommand(query, conn)
-
-            ' Add parameters to the query  
-            cmd.Parameters.AddWithValue("@id", TextBox1.Text)
-            cmd.Parameters.AddWithValue("@firstName", TextBox2.Text)
-            cmd.Parameters.AddWithValue("@lastName", TextBox3.Text)
-            cmd.Parameters.AddWithValue("@age", TextBox4.Text)
-            cmd.Parameters.AddWithValue("@birthday", DateTimePicker1.Value.ToString("yyyy-MM-dd"))
-            cmd.Parameters.AddWithValue("@address", TextBox6.Text)
-
-            ' Execute the query  
-            cmd.ExecuteNonQuery()
-
-            ' Notify the user  
-            MessageBox.Show("Data inserted successfully!", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information)
-
-            ' Refresh the DataGridView  
-            LoadDataIntoGridView()
-        Catch ex As Exception
-            ' Handle errors  
-            MessageBox.Show("An error occurred: " & ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
-        Finally
-            ' Close the connection  
-            conn.Close()
-        End Try
-    End Sub
     Private Sub NumberOnly_KeyPress(sender As Object, e As KeyPressEventArgs)
         ' Allow only numbers and control keys  
         If Not Char.IsDigit(e.KeyChar) AndAlso Not Char.IsControl(e.KeyChar) Then
