@@ -10,6 +10,7 @@ Public Class Form1
         ' Format TextBox1 and TextBox4 to accept numbers only  
         AddHandler TextBox1.KeyPress, AddressOf NumberOnly_KeyPress
         AddHandler TextBox4.KeyPress, AddressOf NumberOnly_KeyPress
+        AddHandler TextBox5.KeyPress, AddressOf NumberOnly_KeyPress
 
         ' Format TextBox2, TextBox3, and TextBox6 to accept normal text  
         AddHandler TextBox2.KeyPress, AddressOf TextOnly_KeyPress
@@ -18,6 +19,7 @@ Public Class Form1
 
         ' Load data into DataGridView  
         LoadDataIntoGridView()
+
     End Sub
     Private Sub DataGridView1_CellClick(sender As Object, e As DataGridViewCellEventArgs) Handles DataGridView1.CellClick
         Try

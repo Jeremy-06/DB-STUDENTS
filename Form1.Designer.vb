@@ -39,6 +39,8 @@ Partial Class Form1
         Me.Button3 = New System.Windows.Forms.Button()
         Me.DataGridView1 = New System.Windows.Forms.DataGridView()
         Me.DateTimePicker1 = New System.Windows.Forms.DateTimePicker()
+        Me.TextBox5 = New System.Windows.Forms.TextBox()
+        Me.Button4 = New System.Windows.Forms.Button()
         CType(Me.DataGridView1, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
@@ -211,12 +213,32 @@ Partial Class Form1
         Me.DateTimePicker1.Size = New System.Drawing.Size(256, 22)
         Me.DateTimePicker1.TabIndex = 17
         '
+        'TextBox5
+        '
+        Me.TextBox5.Font = New System.Drawing.Font("Tahoma", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.TextBox5.Location = New System.Drawing.Point(546, 389)
+        Me.TextBox5.Name = "TextBox5"
+        Me.TextBox5.Size = New System.Drawing.Size(217, 32)
+        Me.TextBox5.TabIndex = 18
+        '
+        'Button4
+        '
+        Me.Button4.Font = New System.Drawing.Font("Tahoma", 10.2!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Button4.Location = New System.Drawing.Point(776, 389)
+        Me.Button4.Name = "Button4"
+        Me.Button4.Size = New System.Drawing.Size(102, 34)
+        Me.Button4.TabIndex = 19
+        Me.Button4.Text = "SEARCH"
+        Me.Button4.UseVisualStyleBackColor = True
+        '
         'Form1
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(8.0!, 16.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.BackColor = System.Drawing.SystemColors.ActiveCaptionText
         Me.ClientSize = New System.Drawing.Size(962, 573)
+        Me.Controls.Add(Me.Button4)
+        Me.Controls.Add(Me.TextBox5)
         Me.Controls.Add(Me.DateTimePicker1)
         Me.Controls.Add(Me.DataGridView1)
         Me.Controls.Add(Me.Button3)
@@ -264,4 +286,6 @@ Partial Class Form1
     Friend WithEvents Button3 As Button
     Friend WithEvents DataGridView1 As DataGridView
     Friend WithEvents DateTimePicker1 As DateTimePicker
+    Friend WithEvents TextBox5 As TextBox
+    Friend WithEvents Button4 As Button
 End Class
