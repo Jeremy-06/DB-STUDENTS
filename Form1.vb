@@ -6,6 +6,7 @@ Public Class Form1
     Public da As MySqlDataAdapter
     Public dt As DataTable = New DataTable()
 
+    ' === Form Events ===
     Private Sub Form1_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         ' Format TextBox1 and TextBox4 to accept numbers only  
         AddHandler TextBox1.KeyPress, AddressOf NumberOnly_KeyPress
@@ -19,8 +20,8 @@ Public Class Form1
 
         ' Load data into DataGridView  
         LoadDataIntoGridView()
-
     End Sub
+
     Private Sub DataGridView1_CellClick(sender As Object, e As DataGridViewCellEventArgs) Handles DataGridView1.CellClick
         Try
             ' Ensure the selected row is valid  
@@ -42,39 +43,9 @@ Public Class Form1
         End Try
     End Sub
 
-    Private Sub LoadDataIntoGridView()
-        Try
-            ' Prepare the SQL query to fetch data  
-            Dim query As String = "SELECT * FROM students_profile"
-            da = New MySqlDataAdapter(query, conn)
+    ' === Button Event Handlers (Sorted) ===
 
-            ' Fill the DataSet and bind it to the DataGridView  
-            ds.Clear()
-            da.Fill(ds, "students")
-            DataGridView1.DataSource = ds.Tables("students")
-        Catch ex As Exception
-            ' Handle errors  
-            MessageBox.Show("An error occurred while loading data: " & ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
-        Finally
-            ' Close the connection  
-            conn.Close()
-        End Try
-    End Sub
-
-    Private Sub NumberOnly_KeyPress(sender As Object, e As KeyPressEventArgs)
-        ' Allow only numbers and control keys  
-        If Not Char.IsDigit(e.KeyChar) AndAlso Not Char.IsControl(e.KeyChar) Then
-            e.Handled = True
-        End If
-    End Sub
-
-    Private Sub TextOnly_KeyPress(sender As Object, e As KeyPressEventArgs)
-        ' Allow only letters, spaces, and control keys  
-        If Not Char.IsLetter(e.KeyChar) AndAlso Not Char.IsWhiteSpace(e.KeyChar) AndAlso Not Char.IsControl(e.KeyChar) Then
-            e.Handled = True
-        End If
-    End Sub
-
+    ' Insert
     Private Sub Button1_Click(sender As Object, e As EventArgs) Handles Button1.Click
         Try
             ' Validate input fields  
@@ -117,6 +88,7 @@ Public Class Form1
         End Try
     End Sub
 
+    ' Update
     Private Sub Button2_Click(sender As Object, e As EventArgs) Handles Button2.Click
         Try
             ' Validate input fields  
@@ -159,6 +131,7 @@ Public Class Form1
         End Try
     End Sub
 
+    ' Delete
     Private Sub Button3_Click(sender As Object, e As EventArgs) Handles Button3.Click
         Try
             ' Validate input fields  
@@ -202,6 +175,7 @@ Public Class Form1
         End Try
     End Sub
 
+    ' Search
     Private Sub Button4_Click(sender As Object, e As EventArgs) Handles Button4.Click
         Try
             ' Validate input fields  
@@ -244,10 +218,46 @@ Public Class Form1
             ' Handle errors  
             MessageBox.Show("An error occurred: " & ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
         Finally
-            ' Close the connection  
+            ' Close the connection     
             If conn.State = ConnectionState.Open Then
                 conn.Close()
             End If
         End Try
     End Sub
+
+    ' === Utility Methods ===
+    Private Sub LoadDataIntoGridView()
+        Try
+            ' Prepare the SQL query to fetch data  
+            Dim query As String = "SELECT * FROM students_profile"
+            da = New MySqlDataAdapter(query, conn)
+
+            ' Fill the DataSet and bind it to the DataGridView  
+            ds.Clear()
+            da.Fill(ds, "students")
+            DataGridView1.DataSource = ds.Tables("students")
+        Catch ex As Exception
+            ' Handle errors  
+            MessageBox.Show("An error occurred while loading data: " & ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+        Finally
+            ' Close the connection  
+            conn.Close()
+        End Try
+    End Sub
+
+    ' === Input Validation Methods ===
+    Private Sub NumberOnly_KeyPress(sender As Object, e As KeyPressEventArgs)
+        ' Allow only numbers and control keys  
+        If Not Char.IsDigit(e.KeyChar) AndAlso Not Char.IsControl(e.KeyChar) Then
+            e.Handled = True
+        End If
+    End Sub
+
+    Private Sub TextOnly_KeyPress(sender As Object, e As KeyPressEventArgs)
+        ' Allow only letters, spaces, and control keys  
+        If Not Char.IsLetter(e.KeyChar) AndAlso Not Char.IsWhiteSpace(e.KeyChar) AndAlso Not Char.IsControl(e.KeyChar) Then
+            e.Handled = True
+        End If
+    End Sub
+
 End Class
