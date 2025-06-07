@@ -39,8 +39,8 @@ Partial Class Form1
         Me.Button3 = New System.Windows.Forms.Button()
         Me.DataGridView1 = New System.Windows.Forms.DataGridView()
         Me.DateTimePicker1 = New System.Windows.Forms.DateTimePicker()
-        Me.TextBox5 = New System.Windows.Forms.TextBox()
         Me.Button4 = New System.Windows.Forms.Button()
+        Me.TextBox5 = New System.Windows.Forms.TextBox()
         CType(Me.DataGridView1, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
@@ -213,14 +213,6 @@ Partial Class Form1
         Me.DateTimePicker1.Size = New System.Drawing.Size(256, 22)
         Me.DateTimePicker1.TabIndex = 17
         '
-        'TextBox5
-        '
-        Me.TextBox5.Font = New System.Drawing.Font("Tahoma", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.TextBox5.Location = New System.Drawing.Point(546, 389)
-        Me.TextBox5.Name = "TextBox5"
-        Me.TextBox5.Size = New System.Drawing.Size(217, 32)
-        Me.TextBox5.TabIndex = 18
-        '
         'Button4
         '
         Me.Button4.Font = New System.Drawing.Font("Tahoma", 10.2!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
@@ -230,6 +222,14 @@ Partial Class Form1
         Me.Button4.TabIndex = 19
         Me.Button4.Text = "SEARCH"
         Me.Button4.UseVisualStyleBackColor = True
+        '
+        'TextBox5
+        '
+        Me.TextBox5.Font = New System.Drawing.Font("Tahoma", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.TextBox5.Location = New System.Drawing.Point(546, 389)
+        Me.TextBox5.Name = "TextBox5"
+        Me.TextBox5.Size = New System.Drawing.Size(217, 32)
+        Me.TextBox5.TabIndex = 18
         '
         'Form1
         '
@@ -286,6 +286,6 @@ Partial Class Form1
     Friend WithEvents Button3 As Button
     Friend WithEvents DataGridView1 As DataGridView
     Friend WithEvents DateTimePicker1 As DateTimePicker
-    Friend WithEvents TextBox5 As TextBox
     Friend WithEvents Button4 As Button
+    Friend WithEvents TextBox5 As TextBox
 End Class

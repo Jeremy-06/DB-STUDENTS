@@ -201,4 +201,53 @@ Public Class Form1
             End If
         End Try
     End Sub
+
+    Private Sub Button4_Click(sender As Object, e As EventArgs) Handles Button4.Click
+        Try
+            ' Validate input fields  
+            If String.IsNullOrWhiteSpace(TextBox1.Text) Then
+                MessageBox.Show("Please enter a Student ID to search.", "Validation Error", MessageBoxButtons.OK, MessageBoxIcon.Warning)
+                Exit Sub
+            End If
+
+            ' Open the connection  
+            conn.Open()
+
+            ' Prepare the SQL query to search for a record  
+            Dim query As String = "SELECT * FROM students_profile WHERE student_id = @id"
+            Dim cmd As MySqlCommand = New MySqlCommand(query, conn)
+
+            ' Add parameters to the query  
+            cmd.Parameters.AddWithValue("@id", TextBox1.Text)
+
+            ' Execute the query and fetch the data  
+            Dim reader As MySqlDataReader = cmd.ExecuteReader()
+
+            ' Check if a record is found  
+            If reader.HasRows Then
+                While reader.Read()
+                    ' Populate the text boxes with the fetched data  
+                    TextBox2.Text = reader("first_name").ToString()
+                    TextBox3.Text = reader("last_name").ToString()
+                    TextBox4.Text = reader("age").ToString()
+                    DateTimePicker1.Value = DateTime.Parse(reader("birthday").ToString())
+                    TextBox6.Text = reader("address").ToString()
+                End While
+                MessageBox.Show("Record found!", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information)
+            Else
+                MessageBox.Show("No record found with the given Student ID.", "Not Found", MessageBoxButtons.OK, MessageBoxIcon.Information)
+            End If
+
+            ' Close the reader  
+            reader.Close()
+        Catch ex As Exception
+            ' Handle errors  
+            MessageBox.Show("An error occurred: " & ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+        Finally
+            ' Close the connection  
+            If conn.State = ConnectionState.Open Then
+                conn.Close()
+            End If
+        End Try
+    End Sub
 End Class
