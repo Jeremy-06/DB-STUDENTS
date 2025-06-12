@@ -1,7 +1,7 @@
 ﻿Imports MySql.Data.MySqlClient
 
 Public Class Form1
-    Dim conn As MySqlConnection = New MySqlConnection("server=localhost;user id=root;password=;database=db_students;port=3306;")
+    Dim conn As MySqlConnection = New MySqlConnection("server=localhost;user id=root;password=;database=db_students;")
     Public ds As DataSet = New DataSet()
     Public da As MySqlDataAdapter
     Public dt As DataTable = New DataTable()
