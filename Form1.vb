@@ -5,20 +5,6 @@ Public Class Form1
     Private Sub Form1_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         LoadData()
     End Sub
-    ' load data from database
-    Public Sub LoadData()
-        Try
-            Dim query As String = "SELECT * FROM students_profile"
-            dataAdapter = New MySqlDataAdapter(query, con)
-            dataTable.Clear()
-            dataAdapter.Fill(dataTable)
-            DataGridView1.DataSource = dataTable
-        Catch ex As Exception
-            MessageBox.Show("Error: " & ex.Message)
-        Finally
-            con.Close()
-        End Try
-    End Sub
 
     Private Sub Button1_Click(sender As Object, e As EventArgs) Handles Button1.Click
         Dim student_id = TextBox1.Text.Trim()

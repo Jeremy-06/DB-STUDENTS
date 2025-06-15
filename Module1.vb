@@ -10,4 +10,18 @@ Module Module1
     Public dataTable As DataTable = New DataTable()
     Public query As String
 
+    Public Sub LoadData()
+        Try
+            Dim query As String = "SELECT * FROM students_profile"
+            dataAdapter = New MySqlDataAdapter(query, con)
+            dataTable.Clear()
+            dataAdapter.Fill(dataTable)
+            Form1.DataGridView1.DataSource = dataTable
+        Catch ex As Exception
+            MessageBox.Show("Error: " & ex.Message)
+        Finally
+            con.Close()
+        End Try
+    End Sub
+
 End Module
