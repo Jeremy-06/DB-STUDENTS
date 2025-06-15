@@ -103,4 +103,51 @@ Public Class Form1
     Private Sub Button3_Click(sender As Object, e As EventArgs) Handles Button3.Click
 
     End Sub
+
+    Private Sub Button4_Click(sender As Object, e As EventArgs) Handles Button4.Click
+        Dim student_id = TextBox5.Text.Trim()
+        If TextBox5.Text = "" Then
+            MsgBox("PLEASE INPUT A STUDENT ID", MsgBoxStyle.Critical, "Error")
+        End If
+        If student_id = "" Then
+            ' Clear fields if ID is empty
+            TextBox1.Text = ""
+            TextBox2.Text = ""
+            TextBox3.Text = ""
+            TextBox4.Text = ""
+            TextBox6.Text = ""
+            DateTimePicker1.Value = DateTime.Now
+            Return
+        End If
+
+        Try
+            con.Open()
+            query = "SELECT * FROM students_profile WHERE student_id = @student_id"
+            command = New MySqlCommand(query, con)
+            command.Parameters.AddWithValue("@student_id", student_id)
+            dataReader = command.ExecuteReader()
+            If dataReader.Read() Then
+                TextBox1.Text = dataReader("student_id").ToString()
+                TextBox2.Text = dataReader("first_name").ToString()
+                TextBox3.Text = dataReader("last_name").ToString()
+                TextBox4.Text = dataReader("age").ToString()
+                TextBox6.Text = dataReader("address").ToString()
+                DateTimePicker1.Value = Convert.ToDateTime(dataReader("birthday"))
+            Else
+                ' Clear fields if not found
+                MessageBox.Show("Student ID not found.")
+                TextBox1.Text = ""
+                TextBox2.Text = ""
+                TextBox3.Text = ""
+                TextBox4.Text = ""
+                TextBox6.Text = ""
+                DateTimePicker1.Value = DateTime.Now
+            End If
+            dataReader.Close()
+        Catch ex As Exception
+            MessageBox.Show("Error: " & ex.Message)
+        Finally
+            con.Close()
+        End Try
+    End Sub
 End Class
