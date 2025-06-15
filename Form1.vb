@@ -42,6 +42,7 @@ Public Class Form1
             MessageBox.Show("Error: " & ex.Message)
         Finally
             con.Close()
+            ClearFields()
         End Try
     End Sub
 
@@ -82,6 +83,7 @@ Public Class Form1
         Finally
             con.Close()
             LoadData()
+            ClearFields()
         End Try
 
     End Sub
@@ -126,6 +128,7 @@ Public Class Form1
         Finally
             con.Close()
             LoadData()
+            ClearFields()
         End Try
     End Sub
 
@@ -174,5 +177,14 @@ Public Class Form1
         Finally
             con.Close()
         End Try
+    End Sub
+    Private Sub ClearFields()
+        TextBox1.Text = ""
+        TextBox2.Text = ""
+        TextBox3.Text = ""
+        TextBox4.Text = ""
+        TextBox6.Text = ""
+        DateTimePicker1.Value = DateTime.Now
+        TextBox5.Text = ""
     End Sub
 End Class
