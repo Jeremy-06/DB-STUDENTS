@@ -101,7 +101,46 @@ Public Class Form1
     End Sub
 
     Private Sub Button3_Click(sender As Object, e As EventArgs) Handles Button3.Click
+        ' Validate input fields
+        Dim student_id = TextBox1.Text.Trim()
+        Dim first_name = TextBox2.Text.Trim()
+        Dim last_name = TextBox3.Text.Trim()
+        Dim age = TextBox4.Text.Trim()
+        Dim address = TextBox6.Text.Trim()
+        Dim birthday = DateTimePicker1.Value.ToString("yyyy-MM-dd")
 
+        ' Check for empty fields
+        If String.IsNullOrWhiteSpace(student_id) OrElse
+           String.IsNullOrWhiteSpace(first_name) OrElse
+           String.IsNullOrWhiteSpace(last_name) OrElse
+           String.IsNullOrWhiteSpace(age) OrElse
+           String.IsNullOrWhiteSpace(address) Then
+            MessageBox.Show("All fields must be filled out.", "Validation Error", MessageBoxButtons.OK, MessageBoxIcon.Warning)
+            Return
+        End If
+        Dim validate As DialogResult = MessageBox.Show("Are you sure you want to delete this record?", "Confirm Delete", MessageBoxButtons.YesNo, MessageBoxIcon.Question)
+        If validate = DialogResult.No Then
+            Return
+        End If
+        Try
+            If String.IsNullOrWhiteSpace(student_id) Then
+                MessageBox.Show("Please enter a Student ID to delete.", "Validation Error", MessageBoxButtons.OK, MessageBoxIcon.Warning)
+                Return
+            End If
+            con.Open()
+            query = "DELETE FROM students_profile WHERE student_id = @student_id"
+            command = New MySqlCommand(query, con)
+
+            command.Parameters.AddWithValue("@student_id", student_id)
+            command.ExecuteNonQuery()
+
+            MessageBox.Show("Data record deleted successfully!")
+        Catch ex As Exception
+            MessageBox.Show("Error: " & ex.Message)
+        Finally
+            con.Close()
+            LoadData()
+        End Try
     End Sub
 
     Private Sub Button4_Click(sender As Object, e As EventArgs) Handles Button4.Click
