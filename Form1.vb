@@ -4,6 +4,13 @@ Public Class Form1
 
     Private Sub Form1_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         LoadData()
+        AddHandler TextBox1.KeyPress, AddressOf NumberOnly_KeyPress
+        AddHandler TextBox4.KeyPress, AddressOf NumberOnly_KeyPress
+        AddHandler TextBox5.KeyPress, AddressOf NumberOnly_KeyPress
+
+        AddHandler TextBox2.KeyPress, AddressOf TextOnly_KeyPress
+        AddHandler TextBox3.KeyPress, AddressOf TextOnly_KeyPress
+        AddHandler TextBox6.KeyPress, AddressOf TextOnly_KeyPress
     End Sub
 
     Private Sub Button1_Click(sender As Object, e As EventArgs) Handles Button1.Click

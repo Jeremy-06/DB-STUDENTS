@@ -23,5 +23,18 @@ Module Module1
             con.Close()
         End Try
     End Sub
+    Public Sub NumberOnly_KeyPress(sender As Object, e As KeyPressEventArgs)
+        ' Allow only numbers and control keys  
+        If Not Char.IsDigit(e.KeyChar) AndAlso Not Char.IsControl(e.KeyChar) Then
+            e.Handled = True
+        End If
+    End Sub
+
+    Public Sub TextOnly_KeyPress(sender As Object, e As KeyPressEventArgs)
+        ' Allow only letters, spaces, and control keys  
+        If Not Char.IsLetter(e.KeyChar) AndAlso Not Char.IsWhiteSpace(e.KeyChar) AndAlso Not Char.IsControl(e.KeyChar) Then
+            e.Handled = True
+        End If
+    End Sub
 
 End Module
