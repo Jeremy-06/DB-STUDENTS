@@ -194,4 +194,5 @@ Public Class Form1
         DateTimePicker1.Value = DateTime.Now
         TextBox5.Text = ""
     End Sub
+
 End Class
